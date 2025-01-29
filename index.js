@@ -1,5 +1,5 @@
 import readline from "readline";
-import chalk from "chalk"; // Importing chalk for coloring
+import chalk from "chalk";
 import {
   extractAutomationProjects,
   extractProjectRules,
@@ -47,7 +47,7 @@ const main = async () => {
   console.log("Welcome to the Automation Migration Tool!");
 
   // Step 2: Export Section
-  const sourceAuthToken = await askQuestion("Enter Source Auth Token: ");
+  const sourceAuthToken = await askQuestion("Enter Source Org User Auth Token: ");
   const sourceOrgId = await askQuestion("Enter Source Organization ID: ");
 
   // Step 1: Create a fresh extraction folder
@@ -67,7 +67,6 @@ const main = async () => {
   );
 
   if (projects.length > 0) {
-    console.log(`Extracted ${projects.length} projects.`);
 
     for (const project of projects) {
       console.log(`\nExtracting rules for Project: ${project.title}`);
@@ -78,6 +77,7 @@ const main = async () => {
         exportFolder
       );
     }
+    console.log(`Extracted ${projects.length} projects.`);
   } else {
     console.log("No projects found or extraction failed.");
     rl.close();
@@ -86,7 +86,7 @@ const main = async () => {
 
   // Step 3: Import Section
   const destinationAuthToken = await askQuestion(
-    "\nEnter Destination Auth Token: "
+    "\nEnter Destination Org User Auth Token: "
   );
   const destinationOrgId = await askQuestion(
     "Enter Destination Organization ID: "

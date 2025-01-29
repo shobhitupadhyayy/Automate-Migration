@@ -1,0 +1,39 @@
+{
+  "count": 1,
+  "rules": [
+    {
+      "title": "us-content-indexing",
+      "description": "us content indexing for search",
+      "project_id": "8ca7fd2b1ee14561b24fbe9eeef13deb",
+      "org_id": "blt70896677ab0ea687",
+      "user_id": "bltf41aeda550d50eca",
+      "trigger": {
+        "id": "679919e85b07422481ee526cfbf9d6bf",
+        "next": []
+      },
+      "steps": [],
+      "step_groups": [
+        "scheduler",
+        null
+      ],
+      "shared": [],
+      "audience": [],
+      "tags": [],
+      "published": true,
+      "active": false,
+      "created_at": "2022-08-30T12:48:01.851Z",
+      "updated_at": "2022-11-30T20:50:30.566Z",
+      "id": "509c7b5813d7445284e467d6892b5bb2",
+      "created_by": {
+        "uid": "bltf41aeda550d50eca",
+        "username": "eric_bltb6ce7601",
+        "email": "eric.huiza@dawnfoods.com",
+        "firstName": "Eric",
+        "lastName": "Huiza",
+        "active": true,
+        "orgInvitationStatus": "",
+        "name": "Eric Huiza"
+      }
+    }
+  ]
+}

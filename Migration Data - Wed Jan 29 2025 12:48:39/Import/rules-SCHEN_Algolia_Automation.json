@@ -1,0 +1,379 @@
+{
+  "rules": [
+    {
+      "title": "SCHEN of EN-US Content Indexing [TEST]",
+      "description": "Content Indexing for STG",
+      "project_id": "18c8c06ecd5449a2a6b77bb48d073eaf",
+      "org_id": "bltbc1e4d98081f0bb5",
+      "user_id": "blt195a6401daca17cf",
+      "trigger": {
+        "id": "",
+        "next": [
+          "2"
+        ]
+      },
+      "steps": [
+        {
+          "name": "2",
+          "title": "Transform",
+          "next": [
+            "3"
+          ],
+          "group_name": "transform",
+          "connector_title": "Transform",
+          "action_title": "Transform",
+          "version": 1,
+          "help": "",
+          "input_schema": "{\n  \"type\": \"object\",\n  \"required\": [\n    \"transform\"\n  ],\n  \"properties\": {\n    \"input\": {\n      \"type\": \"array\",\n      \"title\": \"Input\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"key\": {\n            \"type\": \"string\",\n            \"title\": \"Input Name\",\n            \"minLength\": 1,\n            \"output\": false\n          },\n          \"value\": {\n            \"type\": \"string\",\n            \"title\": \"Input Value\",\n            \"minLength\": 1\n          }\n        }\n      }\n    },\n    \"extend\": {\n      \"type\": \"array\",\n      \"title\": \"Object to Merge\",\n      \"items\": {\n        \"type\": \"string\",\n        \"title\": \"Object Reference\",\n        \"description\": \"Enter object reference.\"\n      }\n    },\n    \"transform\": {\n      \"type\": \"string\",\n      \"title\": \"Transformation\",\n      \"format\": \"code\",\n      \"lang\": \"json\",\n      \"theme\": \"dawn\",\n      \"description\": \"The transformed data should be a valid JSON string.\",\n      \"default\": \"{ }\",\n      \"minLength\": 2\n    }\n  }\n}",
+          "connector_id": "4cda67516d004ac895c5b0c048978d70",
+          "auth": null,
+          "type": "action",
+          "description": "This action provides JSON output for various data points.",
+          "origin_id": "abb725cf2fd64222abee3d49df451983",
+          "id": "abb725cf2fd64222abee3d49df451983",
+          "input_data": "{\"input\":[{\"key\":\"objectID\",\"value\":\"{{1.body.data.entry.uid}}\"},{\"key\":\"title\",\"value\":\"{{1.body.data.entry.title}}\"},{\"key\":\"url\",\"value\":\"{{1.body.data.entry.url}}\"},{\"key\":\"meta_title\",\"value\":\"{{1.body.data.entry.page_configuration.seo_metadata.meta_title}}\"},{\"key\":\"meta_keywords\",\"value\":\"{{1.body.data.entry.page_configuration.seo_metadata.keywords}}\"},{\"key\":\"meta_description\",\"value\":\"{{1.body.data.entry.page_configuration.seo_metadata.meta_description}}\"},{\"key\":\"tag\",\"value\":\"{{1.body.data.entry.tags}}\"},{\"key\":\"type\",\"value\":\"{{1.body.data.content_type.uid}}\"},{\"key\":\"search_image\",\"value\":\"{{1.body.data.entry.page_configuration.search_metadata.image.url}}\"},{\"key\":\"search_brand_folder_image\",\"value\":\"{{1.body.data.entry.page_configuration.search_metadata.brand_folder_image.0.cdn_url}}\"},{\"key\":\"search_image_alt_text\",\"value\":\"{{1.body.data.entry.page_configuration.search_metadata.image_alt_text}}\"}],\"transform\":\"{ \\n    \\\"objectID\\\": \\\"{objectID}\\\",\\n    \\\"title\\\": \\\"{title}\\\",\\n    \\\"url\\\": \\\"{url}\\\",\\n    \\\"meta_title\\\": \\\"{meta_title}\\\",\\n    \\\"meta_keywords\\\": \\\"{meta_keywords}\\\",\\n    \\\"meta_description\\\": \\\"{meta_description}\\\",\\n    \\\"tag\\\": \\\"{tag}\\\",\\n    \\\"type\\\": \\\"{type}\\\",\\n    \\\"search_image\\\": \\\"{split(search_image, 'undefined')|join($pipe,'')}\\\",\\n    \\\"search_brand_folder_image\\\": \\\"{split(search_brand_folder_image, 'undefined')|join($pipe,'')}\\\",\\n    \\\"search_image_alt_text\\\": \\\"{search_image_alt_text}\\\"\\n}\"}",
+          "tested": false,
+          "output_data": "{}",
+          "skipped": true
+        },
+        {
+          "name": "3",
+          "title": "Conditional for Recipe Page",
+          "next": [
+            "4"
+          ],
+          "group_name": "ifelse",
+          "description": "Perform different actions based on a conditional statement.",
+          "id": "ifelse",
+          "connector_id": "ifelse",
+          "input_schema": "{}",
+          "input_data": "{}",
+          "input": [
+            {
+              "condition": "[[{\"input\":\"{{2.type}}\",\"condition\":{\"id\":1,\"value\":\"Matches (Text)\"},\"match\":\"recipe_detail_page\"}]]",
+              "title": "if",
+              "steps": [
+                {
+                  "name": "3-3",
+                  "title": "JavaScript Code",
+                  "next": [
+                    "3-1"
+                  ],
+                  "group_name": "code",
+                  "connector_title": "Codeblock",
+                  "action_title": "JavaScript Code",
+                  "_id": "6447ab4e1fab5a27b1fb0a1a",
+                  "id": "65663b25e8ac4b038d526400016aa0d4",
+                  "origin_id": "65663b25e8ac4b038d526400016aa0d4",
+                  "description": "This action executes the JavaScript code.",
+                  "type": "action",
+                  "auth": null,
+                  "connector_id": "5a161ba2339d4ecdbe54160487e9ccb5",
+                  "input_schema": "{\n  \"type\": \"object\",\n  \"required\": [\n    \"code\"\n  ],\n  \"properties\": {\n    \"params\": {\n      \"title\": \"Input\",\n      \"description\": \"Enter the input name and value you want to use in your JavaScript code. You can also access the data from previous steps.\",\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"key\": {\n            \"title\": \"Input Name\",\n            \"type\": \"string\",\n            \"minLength\": 1,\n            \"output\": false\n          },\n          \"value\": {\n            \"title\": \"Input Value\",\n            \"type\": \"string\",\n            \"minLength\": 1\n          }\n        }\n      },\n      \"default\": [\n        {\n          \"key\": \"greetings\",\n          \"value\": \"hello world\"\n        }\n      ]\n    },\n    \"code\": {\n      \"title\": \"JavaScript Code\",\n      \"type\": \"string\",\n      \"description\": \"Enter the JavaScript code. This automation executes the code using Node.js 18.x.x version.\",\n      \"format\": \"code\",\n      \"lang\": \"javascript\",\n      \"theme\": \"dawn\",\n      \"default\": \"// you can use top level await \\n// you can use lodash as `_` and fetch as `fetch`\\n\\nconst greetings = input.greetings;  \\nreturn _.capitalize(greetings);\",\n      \"minLength\": 3\n    }\n  }\n}",
+                  "help": "",
+                  "version": 1,
+                  "published": true,
+                  "created_at": "2023-04-25T10:28:30.421Z",
+                  "updated_at": "2023-04-25T10:28:30.421Z",
+                  "__v": 0,
+                  "input_data": "{\"params\":[{\"key\":\"publication_date\",\"value\":\"{{1.body.data.entry.publication_date}}\"}],\"code\":\"let publication_date = input.publication_date;  \\nif (publication_date !== undefined && publication_date != null && publication_date.includes(\\\"-\\\")){\\n    let parts = publication_date.split(\\\"-\\\");\\n    publication_date = new Date(parts[0], parts[1] - 1, parts[2]).getTime();\\n}\\n\\nreturn publication_date;\"}",
+                  "tested": false,
+                  "output_data": "{}",
+                  "skipped": true
+                },
+                {
+                  "name": "3-1",
+                  "title": "Transform",
+                  "next": [
+                    "3-2"
+                  ],
+                  "group_name": "transform",
+                  "connector_title": "Transform",
+                  "action_title": "Transform",
+                  "_id": "61f39179ff9abe2b61797607",
+                  "published": true,
+                  "version": 1,
+                  "help": "",
+                  "input_schema": "{\n  \"type\": \"object\",\n  \"required\": [\n    \"transform\"\n  ],\n  \"properties\": {\n    \"input\": {\n      \"type\": \"array\",\n      \"title\": \"Input\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"key\": {\n            \"type\": \"string\",\n            \"title\": \"Input Name\",\n            \"minLength\": 1,\n            \"output\": false\n          },\n          \"value\": {\n            \"type\": \"string\",\n            \"title\": \"Input Value\",\n            \"minLength\": 1\n          }\n        }\n      }\n    },\n    \"extend\": {\n      \"type\": \"array\",\n      \"title\": \"Object to Merge\",\n      \"items\": {\n        \"type\": \"string\",\n        \"title\": \"Object Reference\",\n        \"description\": \"Enter object reference.\"\n      }\n    },\n    \"transform\": {\n      \"type\": \"string\",\n      \"title\": \"Transformation\",\n      \"format\": \"code\",\n      \"lang\": \"json\",\n      \"theme\": \"dawn\",\n      \"description\": \"The transformed data should be a valid JSON string.\",\n      \"default\": \"{ }\",\n      \"minLength\": 2\n    }\n  }\n}",
+                  "connector_id": "4cda67516d004ac895c5b0c048978d70",
+                  "auth": null,
+                  "type": "action",
+                  "description": "This action provides JSON output for various data points.",
+                  "origin_id": "abb725cf2fd64222abee3d49df451983",
+                  "id": "abb725cf2fd64222abee3d49df451983",
+                  "created_at": "2022-01-28T06:47:21.227Z",
+                  "updated_at": "2022-07-08T10:40:31.260Z",
+                  "__v": 0,
+                  "input_data": "{\"input\":[{\"key\":\"short_description\",\"value\":\"{{1.body.data.entry.short_description}}\"},{\"key\":\"publication_date\",\"value\":\"{{1.body.data.entry.publication_date}}\"},{\"key\":\"background_image\",\"value\":\"{{1.body.data.entry.banner_image.image.url}}\"},{\"key\":\"background_brand_folder_image\",\"value\":\"{{1.body.data.entry.banner_image.brand_folder_image.0.cdn_url}}\"},{\"key\":\"background_image_alt_text\",\"value\":\"{{1.body.data.entry.banner_image.image_alt_text}}\"},{\"key\":\"optional_types\",\"value\":\"{{1.body.data.entry.icon_title_group}}\"},{\"key\":\"recipe_occasion\",\"value\":\"{{1.body.data.entry.filter_tags.occasion}}\"},{\"key\":\"recipe_product_type\",\"value\":\"{{1.body.data.entry.filter_tags.product_type}}\"},{\"key\":\"recipe_flavors\",\"value\":\"{{1.body.data.entry.filter_tags.flavors}}\"},{\"key\":\"recipe_ingredient_list\",\"value\":\"{{1.body.data.entry.ingredients_list}}\"},{\"key\":\"language\",\"value\":\"{{1.body.data.entry.filter_tags.hispanic_recipe.0}}\"},{\"key\":\"pub_date_transformed\",\"value\":\"{{3-3.response}}\"}],\"extend\":[\"{{2}}\"],\"transform\":\"{\\n\\\"short_description\\\": \\\"{short_description}\\\",\\n\\\"publication_date\\\": \\\"{pub_date_transformed}\\\",\\n\\\"background_image\\\": \\\"{split(background_image,'undefined')|join($pipe,'')}\\\",\\n\\\"background_brand_folder_image\\\": \\\"{split(background_brand_folder_image,'undefined')|join($pipe,'')}\\\",\\n\\\"background_image_alt_text\\\": \\\"{background_image_alt_text}\\\",\\n\\\"optional_types\\\": \\\"{mapCollection(optional_types,'title=title')}\\\",\\n\\\"recipe_occasion\\\": \\\"{recipe_occasion}\\\",\\n\\\"recipe_product_type\\\": \\\"{recipe_product_type}\\\",\\n\\\"recipe_flavors\\\": \\\"{recipe_flavors}\\\",\\n\\\"recipe_ingredient_list\\\": \\\"{recipe_ingredient_list}\\\",\\n\\\"language\\\": \\\"{split(language,'undefined')|join($pipe,'')}\\\"\\n}\"}",
+                  "skipped": true,
+                  "tested": false,
+                  "output_data": "{}"
+                },
+                {
+                  "name": "3-2",
+                  "title": "Index Entries",
+                  "next": [],
+                  "group_name": "algolia",
+                  "connector_title": "Algolia",
+                  "action_title": "Index Entries",
+                  "_id": "6389e46635c91f7dc071c148",
+                  "id": "35976b233b654daab82abf13b2b6020a",
+                  "origin_id": "02e2aa2b55dd4eda936bc988180d7a64",
+                  "description": "This action adds or updates records in the Algolia index.",
+                  "type": "action",
+                  "auth": null,
+                  "connector_id": "1f7b0b47a0df44d682dfba367abce403",
+                  "input_schema": "{\n  \"type\": \"object\",\n  \"required\": [\n    \"index\",\n    \"body\"\n  ],\n  \"properties\": {\n    \"index\": {\n      \"type\": \"string\",\n      \"title\": \"Index Name\",\n      \"minLength\": 3,\n      \"description\": \"Enter the index name.\",\n      \"lookup\": {\n        \"id\": \"get_indices\"\n      }\n    },\n    \"body\": {\n      \"type\": \"string\",\n      \"title\": \"Entries\",\n      \"format\": \"textarea\",\n      \"description\": \"Enter JSON data to add or update records in the index, if no objectID is found, it will be added automatically.\",\n      \"minLength\": 5\n    }\n  }\n}",
+                  "help": "",
+                  "version": 2,
+                  "published": true,
+                  "created_at": "2022-03-11T14:15:27.386Z",
+                  "updated_at": "2022-03-11T14:15:27.386Z",
+                  "__v": 0,
+                  "input_data": "{\"index\":\"\",\"body\":\"{{3-1}}\"}",
+                  "skipped": true,
+                  "tested": false,
+                  "output_data": "{}"
+                }
+              ]
+            },
+            {
+              "steps": []
+            }
+          ],
+          "tested": false,
+          "skipped": true,
+          "auth": null,
+          "output_data": "{}"
+        },
+        {
+          "name": "4",
+          "title": "Conditional for Insights Detail Page",
+          "next": [
+            "5"
+          ],
+          "group_name": "ifelse",
+          "description": "Perform different actions based on a conditional statement.",
+          "id": "ifelse",
+          "connector_id": "ifelse",
+          "input_schema": "{}",
+          "input_data": "{}",
+          "input": [
+            {
+              "condition": "[[{\"input\":\"{{2.type}}\",\"condition\":{\"id\":1,\"value\":\"Matches (Text)\"},\"match\":\"insights_detail_page\"}]]",
+              "title": "if",
+              "steps": [
+                {
+                  "name": "4-3",
+                  "title": "JavaScript Code",
+                  "next": [
+                    "4-1"
+                  ],
+                  "group_name": "code",
+                  "connector_title": "Codeblock",
+                  "action_title": "JavaScript Code",
+                  "_id": "6447ab4e1fab5a27b1fb0a1a",
+                  "id": "65663b25e8ac4b038d526400016aa0d4",
+                  "origin_id": "65663b25e8ac4b038d526400016aa0d4",
+                  "description": "This action executes the JavaScript code.",
+                  "type": "action",
+                  "auth": null,
+                  "connector_id": "5a161ba2339d4ecdbe54160487e9ccb5",
+                  "input_schema": "{\n  \"type\": \"object\",\n  \"required\": [\n    \"code\"\n  ],\n  \"properties\": {\n    \"params\": {\n      \"title\": \"Input\",\n      \"description\": \"Enter the input name and value you want to use in your JavaScript code. You can also access the data from previous steps.\",\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"key\": {\n            \"title\": \"Input Name\",\n            \"type\": \"string\",\n            \"minLength\": 1,\n            \"output\": false\n          },\n          \"value\": {\n            \"title\": \"Input Value\",\n            \"type\": \"string\",\n            \"minLength\": 1\n          }\n        }\n      },\n      \"default\": [\n        {\n          \"key\": \"greetings\",\n          \"value\": \"hello world\"\n        }\n      ]\n    },\n    \"code\": {\n      \"title\": \"JavaScript Code\",\n      \"type\": \"string\",\n      \"description\": \"Enter the JavaScript code. This automation executes the code using Node.js 18.x.x version.\",\n      \"format\": \"code\",\n      \"lang\": \"javascript\",\n      \"theme\": \"dawn\",\n      \"default\": \"// you can use top level await \\n// you can use lodash as `_` and fetch as `fetch`\\n\\nconst greetings = input.greetings;  \\nreturn _.capitalize(greetings);\",\n      \"minLength\": 3\n    }\n  }\n}",
+                  "help": "",
+                  "version": 1,
+                  "published": true,
+                  "created_at": "2023-04-25T10:28:30.421Z",
+                  "updated_at": "2023-04-25T10:28:30.421Z",
+                  "__v": 0,
+                  "input_data": "{\"params\":[{\"key\":\"publication_date\",\"value\":\"{{1.body.data.entry.publication_date}}\"}],\"code\":\"let publication_date = input.publication_date;  \\nif (publication_date !== undefined && publication_date != null && publication_date.includes(\\\"-\\\")){\\n    let parts = publication_date.split(\\\"-\\\");\\n    publication_date = new Date(parts[0], parts[1] - 1, parts[2]).getTime();\\n}\\n\\nreturn publication_date;\"}",
+                  "tested": false,
+                  "output_data": "{}",
+                  "skipped": true
+                },
+                {
+                  "name": "4-1",
+                  "title": "Transform",
+                  "next": [
+                    "4-2"
+                  ],
+                  "group_name": "transform",
+                  "connector_title": "Transform",
+                  "action_title": "Transform",
+                  "_id": "61f39179ff9abe2b61797607",
+                  "published": true,
+                  "version": 1,
+                  "help": "",
+                  "input_schema": "{\n  \"type\": \"object\",\n  \"required\": [\n    \"transform\"\n  ],\n  \"properties\": {\n    \"input\": {\n      \"type\": \"array\",\n      \"title\": \"Input\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"key\": {\n            \"type\": \"string\",\n            \"title\": \"Input Name\",\n            \"minLength\": 1,\n            \"output\": false\n          },\n          \"value\": {\n            \"type\": \"string\",\n            \"title\": \"Input Value\",\n            \"minLength\": 1\n          }\n        }\n      }\n    },\n    \"extend\": {\n      \"type\": \"array\",\n      \"title\": \"Object to Merge\",\n      \"items\": {\n        \"type\": \"string\",\n        \"title\": \"Object Reference\",\n        \"description\": \"Enter object reference.\"\n      }\n    },\n    \"transform\": {\n      \"type\": \"string\",\n      \"title\": \"Transformation\",\n      \"format\": \"code\",\n      \"lang\": \"json\",\n      \"theme\": \"dawn\",\n      \"description\": \"The transformed data should be a valid JSON string.\",\n      \"default\": \"{ }\",\n      \"minLength\": 2\n    }\n  }\n}",
+                  "connector_id": "4cda67516d004ac895c5b0c048978d70",
+                  "auth": null,
+                  "type": "action",
+                  "description": "This action provides JSON output for various data points.",
+                  "origin_id": "abb725cf2fd64222abee3d49df451983",
+                  "id": "abb725cf2fd64222abee3d49df451983",
+                  "created_at": "2022-01-28T06:47:21.227Z",
+                  "updated_at": "2022-07-08T10:40:31.260Z",
+                  "__v": 0,
+                  "input_data": "{\"input\":[{\"key\":\"short_description\",\"value\":\"{{1.body.data.entry.short_description}}\"},{\"key\":\"publication_date\",\"value\":\"{{1.body.data.entry.publication_date}}\"},{\"key\":\"background_image\",\"value\":\"{{1.body.data.entry.banner_image.image.url}}\"},{\"key\":\"background_brand_folder_image\",\"value\":\"{{1.body.data.entry.banner_image.brand_folder_image.0.cdn_url}}\"},{\"key\":\"background_image_alt_text\",\"value\":\"{{1.body.data.entry.banner_image.image_alt_text}}\"},{\"key\":\"optional_types\",\"value\":\"{{1.body.data.entry.icon_title_group}}\"},{\"key\":\"insights_bakery_advice\",\"value\":\"{{1.body.data.entry.filter_tags.bakery_advice}}\"},{\"key\":\"insights_inspiration\",\"value\":\"{{1.body.data.entry.filter_tags.inspiration}}\"},{\"key\":\"insights_bakery_spotlights\",\"value\":\"{{1.body.data.entry.filter_tags.bakery_spotlights}}\"},{\"key\":\"insights_news_events\",\"value\":\"{{1.body.data.entry.filter_tags.news_events}}\"},{\"key\":\"pub_date_transformed\",\"value\":\"{{4-3.response}}\"}],\"extend\":[\"{{2}}\"],\"transform\":\"{\\n\\\"short_description\\\": \\\"{short_description}\\\",\\n\\\"publication_date\\\": \\\"{pub_date_transformed}\\\",\\n\\\"background_image\\\": \\\"{split(background_image,'undefined')|join($pipe,'')}\\\",\\n\\\"background_brand_folder_image\\\": \\\"{split(background_brand_folder_image,'undefined')|join($pipe,'')}\\\",\\n\\\"background_image_alt_text\\\": \\\"{background_image_alt_text}\\\",\\n\\\"optional_types\\\": \\\"{mapCollection(optional_types,'title=title')}\\\",\\n\\\"insights_bakery_advice\\\": \\\"{insights_bakery_advice}\\\",\\n\\\"insights_inspiration\\\": \\\"{insights_inspiration}\\\",\\n\\\"insights_bakery_spotlights\\\": \\\"{insights_bakery_spotlights}\\\",\\n\\\"insights_news_events\\\": \\\"{insights_news_events}\\\"\\n}\\n\\n\"}",
+                  "skipped": true,
+                  "tested": false,
+                  "output_data": "{}"
+                },
+                {
+                  "name": "4-2",
+                  "title": "Index Entries",
+                  "next": [],
+                  "group_name": "algolia",
+                  "connector_title": "Algolia",
+                  "action_title": "Index Entries",
+                  "_id": "6389e46635c91f7dc071c148",
+                  "id": "35976b233b654daab82abf13b2b6020a",
+                  "origin_id": "02e2aa2b55dd4eda936bc988180d7a64",
+                  "description": "This action adds or updates records in the Algolia index.",
+                  "type": "action",
+                  "auth": null,
+                  "connector_id": "1f7b0b47a0df44d682dfba367abce403",
+                  "input_schema": "{\n  \"type\": \"object\",\n  \"required\": [\n    \"index\",\n    \"body\"\n  ],\n  \"properties\": {\n    \"index\": {\n      \"type\": \"string\",\n      \"title\": \"Index Name\",\n      \"minLength\": 3,\n      \"description\": \"Enter the index name.\",\n      \"lookup\": {\n        \"id\": \"get_indices\"\n      }\n    },\n    \"body\": {\n      \"type\": \"string\",\n      \"title\": \"Entries\",\n      \"format\": \"textarea\",\n      \"description\": \"Enter JSON data to add or update records in the index, if no objectID is found, it will be added automatically.\",\n      \"minLength\": 5\n    }\n  }\n}",
+                  "help": "",
+                  "version": 2,
+                  "published": true,
+                  "created_at": "2022-03-11T14:15:27.386Z",
+                  "updated_at": "2022-03-11T14:15:27.386Z",
+                  "__v": 0,
+                  "input_data": "{\"index\":\"\",\"body\":\"{{4-1}}\"}",
+                  "skipped": true,
+                  "tested": false,
+                  "output_data": "{}"
+                }
+              ]
+            },
+            {
+              "steps": []
+            }
+          ],
+          "tested": false,
+          "skipped": true,
+          "auth": null,
+          "output_data": "{}"
+        },
+        {
+          "name": "5",
+          "title": "Conditional for Corporate-Product Page",
+          "next": [],
+          "group_name": "ifelse",
+          "description": "Perform different actions based on a conditional statement.",
+          "id": "ifelse",
+          "connector_id": "ifelse",
+          "input_schema": "{}",
+          "input_data": "{}",
+          "input": [
+            {
+              "condition": "[[{\"input\":\"{{2.type}}\",\"condition\":{\"id\":1,\"value\":\"Matches (Text)\"},\"match\":\"standard_page\"},{\"input\":\"{{2.tag.0}}\",\"condition\":{\"id\":1,\"value\":\"Matches (Text)\"},\"match\":\"corporate-product\"}],[{\"input\":\"{{2.type}}\",\"condition\":{\"id\":1,\"value\":\"Matches (Text)\"},\"match\":\"standard_page\"},{\"input\":\"{{2.tag.1}}\",\"condition\":{\"id\":1,\"value\":\"Matches (Text)\"},\"match\":\"corporate-product\"}],[{\"input\":\"{{2.type}}\",\"condition\":{\"id\":1,\"value\":\"Matches (Text)\"},\"match\":\"standard_page\"},{\"input\":\"{{2.tag.2}}\",\"condition\":{\"id\":1,\"value\":\"Matches (Text)\"},\"match\":\"corporate-product\"}],[{\"input\":\"{{2.type}}\",\"condition\":{\"id\":1,\"value\":\"Matches (Text)\"},\"match\":\"standard_page\"},{\"input\":\"{{2.tag.3}}\",\"condition\":{\"id\":1,\"value\":\"Matches (Text)\"},\"match\":\"corporate-product\"}],[{\"input\":\"{{2.type}}\",\"condition\":{\"id\":1,\"value\":\"Matches (Text)\"},\"match\":\"standard_page\"},{\"input\":\"{{2.tag.4}}\",\"condition\":{\"id\":1,\"value\":\"Matches (Text)\"},\"match\":\"corporate-product\"}]]",
+              "title": "if",
+              "steps": [
+                {
+                  "name": "5-1",
+                  "title": "Transform",
+                  "next": [
+                    "5-2"
+                  ],
+                  "group_name": "transform",
+                  "connector_title": "Transform",
+                  "action_title": "Transform",
+                  "_id": "61f39179ff9abe2b61797607",
+                  "published": true,
+                  "version": 1,
+                  "help": "",
+                  "input_schema": "{\n  \"type\": \"object\",\n  \"required\": [\n    \"transform\"\n  ],\n  \"properties\": {\n    \"input\": {\n      \"type\": \"array\",\n      \"title\": \"Input\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"key\": {\n            \"type\": \"string\",\n            \"title\": \"Input Name\",\n            \"minLength\": 1,\n            \"output\": false\n          },\n          \"value\": {\n            \"type\": \"string\",\n            \"title\": \"Input Value\",\n            \"minLength\": 1\n          }\n        }\n      }\n    },\n    \"extend\": {\n      \"type\": \"array\",\n      \"title\": \"Object to Merge\",\n      \"items\": {\n        \"type\": \"string\",\n        \"title\": \"Object Reference\",\n        \"description\": \"Enter object reference.\"\n      }\n    },\n    \"transform\": {\n      \"type\": \"string\",\n      \"title\": \"Transformation\",\n      \"format\": \"code\",\n      \"lang\": \"json\",\n      \"theme\": \"dawn\",\n      \"description\": \"The transformed data should be a valid JSON string.\",\n      \"default\": \"{ }\",\n      \"minLength\": 2\n    }\n  }\n}",
+                  "connector_id": "4cda67516d004ac895c5b0c048978d70",
+                  "auth": null,
+                  "type": "action",
+                  "description": "This action provides JSON output for various data points.",
+                  "origin_id": "abb725cf2fd64222abee3d49df451983",
+                  "id": "abb725cf2fd64222abee3d49df451983",
+                  "created_at": "2022-01-28T06:47:21.227Z",
+                  "updated_at": "2022-07-08T10:40:31.260Z",
+                  "__v": 0,
+                  "input_data": "{\"extend\":[\"{{2}}\"],\"transform\":\"{ }\"}",
+                  "skipped": true,
+                  "tested": false,
+                  "output_data": "{}"
+                },
+                {
+                  "name": "5-2",
+                  "title": "Index Entries",
+                  "next": [],
+                  "group_name": "algolia",
+                  "connector_title": "Algolia",
+                  "action_title": "Index Entries",
+                  "_id": "6389e46635c91f7dc071c148",
+                  "id": "35976b233b654daab82abf13b2b6020a",
+                  "origin_id": "02e2aa2b55dd4eda936bc988180d7a64",
+                  "description": "This action adds or updates records in the Algolia index.",
+                  "type": "action",
+                  "auth": null,
+                  "connector_id": "1f7b0b47a0df44d682dfba367abce403",
+                  "input_schema": "{\n  \"type\": \"object\",\n  \"required\": [\n    \"index\",\n    \"body\"\n  ],\n  \"properties\": {\n    \"index\": {\n      \"type\": \"string\",\n      \"title\": \"Index Name\",\n      \"minLength\": 3,\n      \"description\": \"Enter the index name.\",\n      \"lookup\": {\n        \"id\": \"get_indices\"\n      }\n    },\n    \"body\": {\n      \"type\": \"string\",\n      \"title\": \"Entries\",\n      \"format\": \"textarea\",\n      \"description\": \"Enter JSON data to add or update records in the index, if no objectID is found, it will be added automatically.\",\n      \"minLength\": 5\n    }\n  }\n}",
+                  "help": "",
+                  "version": 2,
+                  "published": true,
+                  "created_at": "2022-03-11T14:15:27.386Z",
+                  "updated_at": "2022-03-11T14:15:27.386Z",
+                  "__v": 0,
+                  "input_data": "{\"index\":\"\",\"body\":\"{{5-1}}\"}",
+                  "skipped": true,
+                  "tested": false,
+                  "output_data": "{}"
+                }
+              ]
+            },
+            {
+              "steps": []
+            }
+          ],
+          "tested": false,
+          "skipped": true,
+          "auth": null,
+          "output_data": "{}"
+        }
+      ],
+      "step_groups": [
+        "contentstack",
+        "transform",
+        "ifelse",
+        "ifelse",
+        "ifelse"
+      ],
+      "shared": [],
+      "audience": [],
+      "tags": [],
+      "published": false,
+      "active": false,
+      "isDraftRule": true,
+      "updated_by": {
+        "uid": "blt195a6401daca17cf",
+        "username": "shu-zhen.chen_bltce0d5579",
+        "email": "shu-zhen.chen@dawnfoods.com",
+        "firstName": "Shu-Zhen",
+        "lastName": "Chen",
+        "active": true,
+        "orgInvitationStatus": "",
+        "name": "Shu-Zhen Chen"
+      },
+      "throttle": false,
+      "created_at": "2025-01-29T07:32:20.802Z",
+      "updated_at": "2025-01-29T07:32:20.802Z",
+      "created_by": {
+        "uid": "blt195a6401daca17cf",
+        "username": "shu-zhen.chen_bltce0d5579",
+        "email": "shu-zhen.chen@dawnfoods.com",
+        "firstName": "Shu-Zhen",
+        "lastName": "Chen",
+        "active": true,
+        "orgInvitationStatus": "",
+        "name": "Shu-Zhen Chen"
+      },
+      "share_id": null
+    }
+  ]
+}
