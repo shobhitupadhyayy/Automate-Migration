@@ -21,7 +21,7 @@ Before running this project, make sure you have the following:
 
 ```bash
   cd my-project
-  npm i
+  npm install my-project
 ```
 
 * **Run index.js**
@@ -47,3 +47,14 @@ This will start the export of the automations in the source Org.
 This will start the import of all the automations in the destination org on another region.
 
 **Note - Import process will take some time to complete. Once completed it will store in the "Import" folder inside the "Migration Data" folder created.**
+## Pros
+
+- Seamless migration of the automation data.
+- Supports migration across different regions.
+- Enables migration of all the automation projects across various regions in a single go.
+
+## Cons
+
+- Users must manually set triggers using their Contentstack credentials.
+- Third-party connected apps need to be reconfigured with valid credentials.
+
