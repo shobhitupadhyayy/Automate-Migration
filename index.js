@@ -77,7 +77,7 @@ const main = async () => {
         exportFolder
       );
     }
-    console.log(`Extracted ${projects.length} projects.`);
+    console.log(chalk.green(`\nExtracted ${projects.length} projects.`));
   } else {
     console.log("No projects found or extraction failed.");
     rl.close();
@@ -106,7 +106,7 @@ const main = async () => {
       );
 
       if (newProjectId) {
-        console.log(`Created Project: ${projectName}`);
+        console.log(chalk.green(`Created Project: ${projectName}`));
         const filePath = path.join(exportFolder, fileName);
         console.log(`Importing rules from file path: ${filePath}`);
         await importRules(

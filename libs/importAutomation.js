@@ -1,6 +1,7 @@
 import fs from "fs";
 import fetch from "node-fetch";
 import path from "path";
+import chalk from "chalk";
 
 // Constants
 const baseUrl = "https://gcp-na-app.contentstack.com/automations-api";
@@ -128,7 +129,7 @@ export const importRules = async (authToken, organization_uid, projectId, filePa
       });
 
       if (res.ok) {
-        console.log(`Rule imported successfully: ${rule.title}`);
+        console.log(chalk.green(`Rule imported successfully: ${rule.title}`));
         logToFile(importFolder, `Rule imported successfully: ${rule.title}`);
       } else {
         const errorDetails = await res.json();
@@ -138,9 +139,9 @@ export const importRules = async (authToken, organization_uid, projectId, filePa
 
     await writeFile(importFilePath, existingRules);
     console.log(`Processed rules saved successfully to: ${importFilePath}`);
-    logToFile(importFolder, `Processed rules saved successfully to: ${importFilePath}`);
+    logToFile(chalk.green(importFolder, `Processed rules saved successfully to: ${importFilePath}`));
   } catch (error) {
-    console.error(`Error importing rules: ${error.message}`);
+    console.error(chalk.red(`Error importing rules: ${error.message}`));
     logToFile(importFolder, `Error importing rules: ${error.message}`);
   }
 };
