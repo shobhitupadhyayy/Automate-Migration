@@ -21,7 +21,7 @@ Before running this project, make sure you have the following:
 
 ```bash
   cd my-project
-  npm install my-project
+  npm i
 ```
 
 * **Run index.js**
