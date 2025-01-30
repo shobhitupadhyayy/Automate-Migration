@@ -12,6 +12,7 @@ Before running this project, make sure you have the following:
 * A Contentstack account with the necessary permissions for both the source and destination organizations.
 * Node.js version 19 or greater installed on your local machine.
 * A valid contentstack auth token and organization ID for both source and destination organizations
+* Automations should be in a correct format
 
 
 
@@ -53,7 +54,7 @@ This will start the import of all the automations in the destination org on anot
 - Supports migration across different regions.
 - Enables migration of all the automation projects across various regions in a single go.
 
-## Cons
+## Limitations
 
 - Users must manually set triggers using their Contentstack credentials.
 - Third-party connected apps need to be reconfigured with valid credentials.
