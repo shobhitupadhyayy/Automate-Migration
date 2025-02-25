@@ -49,6 +49,26 @@ const main = async () => {
   // Step 2: Export Section
   const sourceAuthToken = await askQuestion("Enter Source Org User Auth Token: ");
   const sourceOrgId = await askQuestion("Enter Source Organization ID: ");
+  
+  // New Step: Ask for the region
+  const region = await askQuestion("Enter the source region (aws-na, gcp-na, azure-eu): ");
+  
+  // Set the URI based on the region
+  let uri;
+  switch (region.toLowerCase()) {
+    case 'aws-na':
+      uri = 'https://app.contentstack.com/automations-api/projects/';
+      break;
+    case 'gcp-na':
+      uri = 'https://gcp-na-app.contentstack.com/automations-api/projects/';
+      break;
+    case 'azure-eu':
+      uri = 'https://azure-eu-app.contentstack.com/automations-api/projects/';
+      break;
+    default:
+      console.log("Invalid region entered. Exiting...");
+      process.exit(1);
+  }
 
   // Step 1: Create a fresh extraction folder
   const extractionFolder = createFreshExtractionFolder();
@@ -63,7 +83,8 @@ const main = async () => {
   const projects = await extractAutomationProjects(
     sourceAuthToken,
     sourceOrgId,
-    exportFolder
+    exportFolder,
+    uri
   );
 
   if (projects.length > 0) {
@@ -74,7 +95,8 @@ const main = async () => {
         sourceAuthToken,
         sourceOrgId,
         project,
-        exportFolder
+        exportFolder,
+        uri
       );
     }
     console.log(chalk.green(`\nExtracted ${projects.length} projects.`));
@@ -91,6 +113,24 @@ const main = async () => {
   const destinationOrgId = await askQuestion(
     "Enter Destination Organization ID: "
   );
+  let destinationUri = await askQuestion(
+    "Enter the Destination Region (aws-na, gcp-na, azure-eu): "
+  );
+
+  switch (destinationUri.toLowerCase()) {
+    case 'aws-na':
+      destinationUri = 'https://app.contentstack.com/automations-api/';
+      break;
+    case 'gcp-na':
+      destinationUri = 'https://gcp-na-app.contentstack.com/automations-api/';
+      break;
+    case 'azure-eu':
+      destinationUri = 'https://azure-eu-app.contentstack.com/automations-api/';
+      break;
+    default:
+      console.log("Invalid region entered. Exiting...");
+      process.exit(1);
+  }
 
   console.log("\nCreating projects and importing rules...");
   const exportedFiles = fs.readdirSync(exportFolder);
@@ -102,7 +142,8 @@ const main = async () => {
       const newProjectId = await createProject(
         destinationAuthToken,
         destinationOrgId,
-        projectName
+        projectName,
+        destinationUri
       );
 
       if (newProjectId) {
@@ -113,7 +154,8 @@ const main = async () => {
           destinationAuthToken,
           destinationOrgId,
           newProjectId,
-          filePath
+          filePath, 
+          destinationUri
         );
       } else {
         console.log(`Failed to create project: ${projectName}`);

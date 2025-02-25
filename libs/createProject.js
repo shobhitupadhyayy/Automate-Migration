@@ -10,7 +10,8 @@ import { default as axios } from "axios";
 export const createProject = async (
   authToken,
   organization_uid,
-  projectName
+  projectName, 
+  uri
 ) => {
   const headers = {
     authToken,
@@ -28,7 +29,7 @@ export const createProject = async (
 
   try {
     const response = await axios.post(
-      "https://gcp-na-app.contentstack.com/automations-api/projects",
+      `${uri}`,
       payload,
       { headers }
     );

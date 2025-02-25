@@ -33,10 +33,9 @@ const saveToFile = (exportFolder, fileName, data) => {
 export const extractAutomationProjects = async (
   authToken,
   organization_uid,
-  exportFolder
+  exportFolder, uri
 ) => {
   const headers = { authToken, organization_uid };
-  const uri = "https://app.contentstack.com/automations-api/projects/";
 
   try {
     const response = await axios.get(uri, { headers });
@@ -74,13 +73,13 @@ export const extractProjectRules = async (
   authToken,
   organization_uid,
   project,
-  exportFolder
+  exportFolder,
+  uri
 ) => {
   const headers = { authToken, organization_uid };
-  const uri = `https://app.contentstack.com/automations-api/projects/${project.id}/rules`;
 
   try {
-    const response = await axios.get(uri, { headers });
+    const response = await axios.get(`${uri}/${project.id}/rules`, { headers });
     logToFile(
       exportFolder,
       `Successfully extracted rules for project '${project.title}' (ID: ${project.id})`
