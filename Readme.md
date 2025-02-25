@@ -22,7 +22,7 @@ Before running this project, make sure you have the following:
 
 ```bash
   cd my-project
-  npm install my-project
+  npm install
 ```
 
 * **Run index.js**
@@ -36,6 +36,7 @@ Before running this project, make sure you have the following:
 ```bash
   Enter Source Org Auth Token: ************
   Enter Source Organization ID: ***********
+  Enter Source Region (aws-na, gcp-na, azure-eu): ***********
 ```
 This will start the export of the automations in the source Org.
 
@@ -44,6 +45,7 @@ This will start the export of the automations in the source Org.
 ```bash
   Enter Destination Org Auth Token: ************
   Enter Destination Organization ID: ***********
+  Enter Destination Region (aws-na, gcp-na, azure-eu): ***********
 ```
 This will start the import of all the automations in the destination org on another region.
 
