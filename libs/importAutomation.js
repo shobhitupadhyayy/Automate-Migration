@@ -4,7 +4,7 @@ import path from "path";
 import chalk from "chalk";
 
 // Constants
-// const baseUrl = "https://gcp-na-app.contentstack.com/automations-api";
+const baseUrl = "https://gcp-eu-app.contentstack.com/automations-api";
 let connectors = {};
 
 // Utility functions
@@ -43,7 +43,7 @@ const fetchJSON = async (url, options = {}) => {
   return response.json();
 };
 
-const getConnectors = async (stepGroups, headers, baseUrl) => {
+const getConnectors = async (stepGroups, headers) => {
   const response = await fetchJSON(`${baseUrl}/connectors`, { headers });
   const map = {};
 
@@ -56,7 +56,7 @@ const getConnectors = async (stepGroups, headers, baseUrl) => {
   return map;
 };
 
-const getActions = async (groupName, headers, baseUrl) => {
+const getActions = async (groupName, headers) => {
   if (["ifelse", "loop", "repeat"].includes(groupName)) return;
 
   if (!connectors[groupName]) {
@@ -70,7 +70,7 @@ const getActions = async (groupName, headers, baseUrl) => {
   }, {});
 };
 
-export const importRules = async (authToken, organization_uid, projectId, filePath, baseUrl) => {
+export const importRules = async (authToken, organization_uid, projectId, filePath) => {
   const headers = {
     "Content-Type": "application/json",
     authtoken: authToken,
@@ -99,10 +99,10 @@ export const importRules = async (authToken, organization_uid, projectId, filePa
       logToFile(importFolder, `Processing rule: ${rule.title}`);
 
       rule.step_groups = rule.step_groups.filter(Boolean);
-      connectors = await getConnectors(rule.step_groups, headers, baseUrl);
+      connectors = await getConnectors(rule.step_groups, headers);
 
       for (const groupName of rule.step_groups) {
-        await getActions(groupName, headers, baseUrl);
+        await getActions(groupName, headers);
       }
 
       const newRule = {

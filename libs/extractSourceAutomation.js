@@ -1,3 +1,4 @@
+
 import { default as axios } from "axios";
 import fs from "fs";
 import path from "path";
@@ -33,9 +34,10 @@ const saveToFile = (exportFolder, fileName, data) => {
 export const extractAutomationProjects = async (
   authToken,
   organization_uid,
-  exportFolder, uri
+  exportFolder
 ) => {
   const headers = { authToken, organization_uid };
+  const uri = "https://gcp-na-app.contentstack.com/automations-api/projects/";
 
   try {
     const response = await axios.get(uri, { headers });
@@ -73,13 +75,13 @@ export const extractProjectRules = async (
   authToken,
   organization_uid,
   project,
-  exportFolder,
-  uri
+  exportFolder
 ) => {
   const headers = { authToken, organization_uid };
+  const uri = `https://gcp-na-app.contentstack.com/automations-api/projects/${project.id}/rules`;
 
   try {
-    const response = await axios.get(`${uri}/${project.id}/rules`, { headers });
+    const response = await axios.get(uri, { headers });
     logToFile(
       exportFolder,
       `Successfully extracted rules for project '${project.title}' (ID: ${project.id})`
